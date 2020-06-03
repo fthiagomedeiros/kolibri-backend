@@ -20,10 +20,18 @@ class AirlineRoute {
     private Airport origin;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Airport destionation;
+    private Airport destination;
 
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime departureTime;
+
+    private String company;
+
+    private int availableWeight;
 
 }

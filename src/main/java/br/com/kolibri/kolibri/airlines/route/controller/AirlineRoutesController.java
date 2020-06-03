@@ -1,14 +1,22 @@
 package br.com.kolibri.kolibri.airlines.route.controller;
 
+import br.com.kolibri.kolibri.airlines.route.domain.AirlineRoute;
+import br.com.kolibri.kolibri.airlines.route.service.AirlineRoutes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
-
 @RestController
 @RequestMapping("/airline-routes")
 public class AirlineRoutesController {
+
+    private final AirlineRoutes service;
+
+    @Autowired
+    public AirlineRoutesController(AirlineRoutes service) {
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<String> createRoute() {
@@ -17,7 +25,7 @@ public class AirlineRoutesController {
 
 
     @GetMapping
-    public ResponseEntity<String> getAirlineRoutes(
+    public ResponseEntity<Iterable<AirlineRoute>> getAirlineRoutes(
             @RequestParam(
                     value = "page",
                     required = false,
@@ -26,7 +34,7 @@ public class AirlineRoutesController {
                     value = "size",
                     required = false,
                     defaultValue = "10") int size) {
-        return new ResponseEntity<>("getAirlineRoutes", HttpStatus.OK);
+        return new ResponseEntity<>(service.getAirlineRoutes(), HttpStatus.OK);
     }
 
 }
