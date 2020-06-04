@@ -16,10 +16,10 @@ class AirlineRoute {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Airport origin;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Airport destination;
 
     @CreationTimestamp
@@ -32,6 +32,6 @@ class AirlineRoute {
 
     private String company;
 
-    private int availableWeight;
+    private int cargo;
 
 }

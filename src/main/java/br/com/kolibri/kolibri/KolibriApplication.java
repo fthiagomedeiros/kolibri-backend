@@ -45,7 +45,7 @@ public class KolibriApplication {
             route1.setCompany("LATAM");
             route1.setCreatedAt(LocalDateTime.now());
             route1.setDepartureTime(LocalDateTime.of(2020, 6, 10, 22, 22, 0));
-            route1.setAvailableWeight(1000);
+            route1.setCargo(1000);
             routeRepo.save(route1);
 
             AirlineRoute route2 = new AirlineRoute();
@@ -54,8 +54,17 @@ public class KolibriApplication {
             route2.setCompany("LATAM");
             route2.setCreatedAt(LocalDateTime.now());
             route2.setDepartureTime(LocalDateTime.of(2020, 7, 10, 22, 22, 0));
-            route2.setAvailableWeight(500);
+            route2.setCargo(500);
             routeRepo.save(route2);
+
+            AirlineRoute route3 = new AirlineRoute();
+            route3.setOrigin(a);
+            route3.setDestination(a2);
+            route3.setCompany("GOL");
+            route3.setCreatedAt(LocalDateTime.now());
+            route3.setDepartureTime(LocalDateTime.of(2020, 6, 10, 22, 22, 0));
+            route3.setCargo(100);
+            routeRepo.save(route3);
 
         };
     }

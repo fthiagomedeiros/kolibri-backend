@@ -22,4 +22,8 @@ class Airport {
     private String state;
 
     private String country = "BR";
+
+    private double latitude;
+
+    private double longitude;
 }

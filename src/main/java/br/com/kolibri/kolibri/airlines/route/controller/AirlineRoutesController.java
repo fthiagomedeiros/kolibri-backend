@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/airline-routes")
 public class AirlineRoutesController {
@@ -23,18 +25,9 @@ public class AirlineRoutesController {
         return new ResponseEntity<>("createRoute", HttpStatus.OK);
     }
 
-
     @GetMapping
-    public ResponseEntity<Iterable<AirlineRoute>> getAirlineRoutes(
-            @RequestParam(
-                    value = "page",
-                    required = false,
-                    defaultValue = "0") int page,
-            @RequestParam(
-                    value = "size",
-                    required = false,
-                    defaultValue = "10") int size) {
-        return new ResponseEntity<>(service.getAirlineRoutes(), HttpStatus.OK);
+    public ResponseEntity<List<AirlineRoute>> getAirlineRoutes(@RequestParam(value = "company") String company) {
+        return new ResponseEntity<>(service.getAirlineRoutes(company), HttpStatus.OK);
     }
 
 }

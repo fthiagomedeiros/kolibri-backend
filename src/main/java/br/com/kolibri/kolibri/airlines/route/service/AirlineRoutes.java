@@ -2,6 +2,8 @@ package br.com.kolibri.kolibri.airlines.route.service;
 
 import br.com.kolibri.kolibri.airlines.route.domain.AirlineRoute;
 
+import java.util.List;
+
 public interface AirlineRoutes {
-    Iterable<AirlineRoute> getAirlineRoutes();
+    List<AirlineRoute> getAirlineRoutes(String company);
 }
