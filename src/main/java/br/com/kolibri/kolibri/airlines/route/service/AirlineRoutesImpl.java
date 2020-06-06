@@ -1,25 +1,64 @@
 package br.com.kolibri.kolibri.airlines.route.service;
 
+import br.com.kolibri.kolibri.airlines.route.domain.Airline;
 import br.com.kolibri.kolibri.airlines.route.domain.Route;
+import br.com.kolibri.kolibri.airlines.route.repository.AirlineRepository;
 import br.com.kolibri.kolibri.airlines.route.repository.RouteRepository;
+import br.com.kolibri.kolibri.airlines.route.request.RouteRequest;
+import br.com.kolibri.kolibri.airlines.route.service.exceptions.AirlineNotFound;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class AirlineRoutesImpl implements AirlineRoutes {
 
-    private final RouteRepository repository;
+    private final RouteRepository routesRepo;
+    private final AirlineRepository airlineRepo;
 
-    public AirlineRoutesImpl(RouteRepository repository) {
-        this.repository = repository;
+    @Autowired
+    public AirlineRoutesImpl(RouteRepository routesRepo,
+                             AirlineRepository airlineRepo) {
+        this.routesRepo = routesRepo;
+        this.airlineRepo = airlineRepo;
+    }
+
+    @Override
+    public Route createRoute(String airlineId, RouteRequest request) throws AirlineNotFound, ParseException {
+        Optional<Airline> airline = airlineRepo.findById(airlineId);
+        if (airline.isPresent()) {
+
+            Calendar departureTime = extractDate(request.getDepartureTime());
+            Calendar arrivalTime = extractDate(request.getArrivalTime());
+
+            Route route = new Route();
+            route.setDepartureTime(departureTime);
+            route.setArrivalTime(arrivalTime);
+            route.setOriginIcao(request.getOriginIcao());
+            route.setDestinationIcao(request.getDestinationIcao());
+            route.setCargo(request.getCargo());
+            route.setAirline(airline.get());
+            routesRepo.save(route);
+
+            return route;
+        }
+        throw new AirlineNotFound(String.format("There is no airline with id %s", airlineId));
+    }
+
+    public Calendar extractDate(String strDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date date = sdf.parse(strDate);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
     }
 
     @Override
     public List<Route> getAirlineRoutes(String uuid) {
-        Optional<List<Route>> routes = repository.findAllByAirlineUuid(uuid);
+        Optional<List<Route>> routes = routesRepo.findAllByAirlineUuid(uuid);
         return routes.orElseGet(ArrayList::new);
     }
 }
