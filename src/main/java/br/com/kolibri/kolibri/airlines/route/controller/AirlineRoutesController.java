@@ -4,6 +4,7 @@ import br.com.kolibri.kolibri.airlines.route.domain.Route;
 import br.com.kolibri.kolibri.airlines.route.request.RouteRequest;
 import br.com.kolibri.kolibri.airlines.route.service.AirlineRoutes;
 import br.com.kolibri.kolibri.airlines.route.service.exceptions.AirlineNotFound;
+import br.com.kolibri.kolibri.airlines.route.service.exceptions.AirlineRouteNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +47,15 @@ public class AirlineRoutesController {
     }
 
     @PutMapping(value = "/{airlineId}/routes/{routeId}")
-    public ResponseEntity<Route> updateRoute(@PathVariable String airlineId, @PathVariable String routeId) {
-        Route newUpdated = service.updateRoute(airlineId, routeId);
-        return new ResponseEntity<>(newUpdated, HttpStatus.OK);
+    public ResponseEntity<Route> updateRoute(@PathVariable String airlineId,
+                                             @PathVariable String routeId,
+                                             @RequestBody RouteRequest request) {
+        try {
+            Route newUpdated = service.updateRoute(airlineId, routeId, request);
+            return new ResponseEntity<>(newUpdated, HttpStatus.OK);
+        } catch (AirlineRouteNotFound | ParseException airlineRouteNotFound) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
 }
