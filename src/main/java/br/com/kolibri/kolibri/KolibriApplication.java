@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 @SpringBootApplication
 public class KolibriApplication {
 
@@ -37,21 +40,32 @@ public class KolibriApplication {
 
             Route r1 = new Route();
             r1.setCargo(150);
+            r1.setDepartureTime(new GregorianCalendar(2020, Calendar.JULY, 15, 22, 0));
+            r1.setArrivalTime(new GregorianCalendar(2020, Calendar.JULY, 16, 1, 0));
             r1.setAirline(airline1);
+            r1.setDestinationIcao("SBGR");
+            r1.setOriginIcao("SBKG");
             routeRepository.save(r1);
 
             Route r2 = new Route();
             r2.setCargo(1550);
+            r2.setDepartureTime(new GregorianCalendar(2020, Calendar.JULY, 15, 22, 0));
+            r2.setArrivalTime(new GregorianCalendar(2020, Calendar.JULY, 16, 1, 0));
             r2.setAirline(airline2);
+            r2.setDestinationIcao("SBGR");
+            r2.setOriginIcao("SBRF");
             routeRepository.save(r2);
 
             Route r3 = new Route();
             r3.setCargo(100);
+            r3.setDepartureTime(new GregorianCalendar(2020, Calendar.JULY, 15, 22, 0));
+            r3.setArrivalTime(new GregorianCalendar(2020, Calendar.JULY, 16, 1, 0));
             r3.setAirline(airline2);
+            r3.setDestinationIcao("SBKG");
+            r3.setOriginIcao("SBGR");
             routeRepository.save(r3);
 
             //Populate airports
-
             Airport a1 = new Airport();
             a1.setCity("Campina Grande");
             a1.setCountry("Brasil");

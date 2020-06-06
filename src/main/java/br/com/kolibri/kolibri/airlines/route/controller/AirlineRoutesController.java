@@ -20,16 +20,16 @@ public class AirlineRoutesController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createRoute() {
-        return new ResponseEntity<>("createRoute", HttpStatus.OK);
+    @PostMapping(value = "/{id}/routes")
+    public ResponseEntity<String> createRoute(@PathVariable String id) {
+        return new ResponseEntity<>(String.format("Create Route for Airline %s", id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/routes")
     public ResponseEntity<List<Route>> getAirlineRoutes(@PathVariable String id) {
         List<Route> routes = service.getAirlineRoutes(id);
         if (routes.size() == 0) {
-            return new ResponseEntity<>(routes, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(routes, HttpStatus.OK);
     }
