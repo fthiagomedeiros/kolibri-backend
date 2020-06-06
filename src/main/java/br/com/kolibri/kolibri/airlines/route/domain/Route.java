@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Route {
 
     @Id
-    private String uuid = UUID.randomUUID().toString();
+    private final String uuid = UUID.randomUUID().toString();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "airline_uuid")
@@ -28,14 +28,6 @@ public class Route {
 
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public Airline getAirline() {
-        return airline;
     }
 
     public void setAirline(Airline airline) {
