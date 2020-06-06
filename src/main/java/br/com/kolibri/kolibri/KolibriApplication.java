@@ -46,6 +46,7 @@ public class KolibriApplication {
             r1.setAirline(airline1);
             r1.setDestinationIcao("SBGR");
             r1.setOriginIcao("SBKG");
+            r1.setFlightId("JJ2554");
             routeRepository.save(r1);
 
             Route r2 = new Route();
@@ -55,6 +56,7 @@ public class KolibriApplication {
             r2.setAirline(airline2);
             r2.setDestinationIcao("SBGR");
             r2.setOriginIcao("SBRF");
+            r2.setFlightId("GLO2554");
             routeRepository.save(r2);
 
             Route r3 = new Route();
@@ -64,6 +66,7 @@ public class KolibriApplication {
             r3.setAirline(airline2);
             r3.setDestinationIcao("SBKG");
             r3.setOriginIcao("SBGR");
+            r3.setFlightId("GLO3222");
             routeRepository.save(r3);
 
             //Populate airports

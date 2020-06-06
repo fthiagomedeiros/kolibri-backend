@@ -10,9 +10,7 @@ public class Route {
     @Id
     private final String uuid = UUID.randomUUID().toString();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "airline_uuid")
-    private Airline airline;
+    private String flightId;
 
     private Calendar departureTime;
 
@@ -26,8 +24,24 @@ public class Route {
 
     private int cargo;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "airline_uuid")
+    private Airline airline;
+
     public String getUuid() {
         return uuid;
+    }
+
+    public String getFlightId() {
+        return flightId;
+    }
+
+    public void setFlightId(String flightId) {
+        this.flightId = flightId;
+    }
+
+    public Airline getAirline() {
+        return airline;
     }
 
     public void setAirline(Airline airline) {

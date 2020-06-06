@@ -5,6 +5,7 @@ public class RouteRequest {
     private String arrivalTime;
     private String originIcao;
     private String destinationIcao;
+    private String flightId;
     private int cargo;
 
     public String getDepartureTime() {
@@ -37,6 +38,14 @@ public class RouteRequest {
 
     public void setDestinationIcao(String destinationIcao) {
         this.destinationIcao = destinationIcao;
+    }
+
+    public String getFlightId() {
+        return flightId;
+    }
+
+    public void setFlightId(String flightId) {
+        this.flightId = flightId;
     }
 
     public int getCargo() {

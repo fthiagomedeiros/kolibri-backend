@@ -31,16 +31,16 @@ public class AirlineRoutesImpl implements AirlineRoutes {
         Optional<Airline> airline = airlineRepo.findById(airlineId);
         if (airline.isPresent()) {
 
+            Route route = new Route();
             Calendar departureTime = extractDate(request.getDepartureTime());
             Calendar arrivalTime = extractDate(request.getArrivalTime());
-
-            Route route = new Route();
             route.setDepartureTime(departureTime);
             route.setArrivalTime(arrivalTime);
             route.setOriginIcao(request.getOriginIcao());
             route.setDestinationIcao(request.getDestinationIcao());
             route.setCargo(request.getCargo());
             route.setAirline(airline.get());
+            route.setFlightId(request.getFlightId());
             routesRepo.save(route);
 
             return route;
