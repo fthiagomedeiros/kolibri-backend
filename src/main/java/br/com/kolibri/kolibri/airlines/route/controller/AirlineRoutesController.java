@@ -39,7 +39,7 @@ public class AirlineRoutesController {
 
     @GetMapping(value = "/{airlineId}/routes")
     public ResponseEntity<List<Route>> fetchRoutesBy(@PathVariable String airlineId) {
-        List<Route> routes = service.getAirlineRoutes(airlineId);
+        List<Route> routes = service.fetchRoutes(airlineId);
         if (routes.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -40,7 +40,7 @@ public class AirlineRoutesImpl implements AirlineRoutes {
     }
 
     @Override
-    public List<Route> getAirlineRoutes(String uuid) {
+    public List<Route> fetchRoutes(String uuid) {
         Optional<List<Route>> routes = routesRepo.findAllByAirlineUuid(uuid);
         return routes.orElseGet(ArrayList::new);
     }
@@ -49,11 +49,15 @@ public class AirlineRoutesImpl implements AirlineRoutes {
     public Route updateRoute(String airlineId, String routeId, RouteRequest request) throws AirlineRouteNotFound, ParseException {
         Optional<Route> value = routesRepo.findByUuid(routeId);
         if (value.isPresent()) {
-            Route route = createRoute(value.get(), request);
-            routesRepo.save(route);
-            return route;
+            Route aRoute = value.get();
+
+            if (airlineId.equalsIgnoreCase(aRoute.getAirline().getUuid())) {
+                Route route = createRoute(value.get(), request);
+                routesRepo.save(route);
+                return route;
+            }
         }
-        throw new AirlineRouteNotFound(String.format("There is no route with id %s", airlineId));
+        throw new AirlineRouteNotFound(String.format("The route %s does not belong to airline %s", routeId, airlineId));
     }
 
     private Route createRoute(Route route, RouteRequest request) throws ParseException {
