@@ -45,8 +45,9 @@ public class AirlineRoutesController {
         return new ResponseEntity<>(routes, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{airlineId}/route/{routeId}")
-    public ResponseEntity<String> updateRoute(@PathVariable String airlineId, @PathVariable String routeId) {
-        return new ResponseEntity<>(String.format("Update Route %s for Airline %s", routeId, airlineId), HttpStatus.OK);
+    @PutMapping(value = "/{airlineId}/routes/{routeId}")
+    public ResponseEntity<Route> updateRoute(@PathVariable String airlineId, @PathVariable String routeId) {
+        Route newUpdated = service.updateRoute(airlineId, routeId);
+        return new ResponseEntity<>(newUpdated, HttpStatus.OK);
     }
 }

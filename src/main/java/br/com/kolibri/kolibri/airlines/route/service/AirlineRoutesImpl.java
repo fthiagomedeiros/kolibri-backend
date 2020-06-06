@@ -61,4 +61,10 @@ public class AirlineRoutesImpl implements AirlineRoutes {
         Optional<List<Route>> routes = routesRepo.findAllByAirlineUuid(uuid);
         return routes.orElseGet(ArrayList::new);
     }
+
+    @Override
+    public Route updateRoute(String airlineId, String routeId) {
+        Optional<Route> value = routesRepo.findByUuid(routeId);
+        return value.get();
+    }
 }

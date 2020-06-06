@@ -10,4 +10,6 @@ import java.util.List;
 public interface AirlineRoutes {
     Route createRoute(String airlineId, RouteRequest request) throws AirlineNotFound, ParseException;
     List<Route> getAirlineRoutes(String uuid);
+    Route updateRoute(String airlineId, String routeId);
+
 }

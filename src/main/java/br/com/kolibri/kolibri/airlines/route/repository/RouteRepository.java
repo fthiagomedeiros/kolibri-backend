@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface RouteRepository extends CrudRepository<Route, String> {
     Optional<List<Route>> findAllByAirlineUuid(String uuid);
+    Optional<Route> findByUuid(String routeId);
 }
