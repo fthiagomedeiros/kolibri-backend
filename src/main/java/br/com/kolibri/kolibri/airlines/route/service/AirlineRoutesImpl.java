@@ -1,7 +1,7 @@
 package br.com.kolibri.kolibri.airlines.route.service;
 
-import br.com.kolibri.kolibri.airlines.route.domain.AirlineRoute;
-import br.com.kolibri.kolibri.airlines.route.repository.AirlineRoutesRepository;
+import br.com.kolibri.kolibri.airlines.route.domain.Route;
+import br.com.kolibri.kolibri.airlines.route.repository.RouteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,15 +11,15 @@ import java.util.Optional;
 @Service
 public class AirlineRoutesImpl implements AirlineRoutes {
 
-    private final AirlineRoutesRepository repository;
+    private final RouteRepository repository;
 
-    public AirlineRoutesImpl(AirlineRoutesRepository repository) {
+    public AirlineRoutesImpl(RouteRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public List<AirlineRoute> getAirlineRoutes(String company) {
-        Optional<List<AirlineRoute>> companies = repository.findAllByCompany(company);
-        return companies.orElseGet(ArrayList::new);
+    public List<Route> getAirlineRoutes(String uuid) {
+        Optional<List<Route>> routes = repository.findAllByAirlineUuid(uuid);
+        return routes.orElseGet(ArrayList::new);
     }
 }

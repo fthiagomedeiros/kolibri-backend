@@ -1,15 +1,15 @@
 package br.com.kolibri.kolibri;
 
-import br.com.kolibri.kolibri.airlines.route.domain.AirlineRoute;
-import br.com.kolibri.kolibri.airlines.route.domain.Airport;
-import br.com.kolibri.kolibri.airlines.route.repository.AirlineRoutesRepository;
-import br.com.kolibri.kolibri.airlines.route.repository.AirportsRepository;
+import br.com.kolibri.kolibri.airlines.route.domain.Airline;
+import br.com.kolibri.kolibri.airlines.route.domain.Route;
+import br.com.kolibri.kolibri.airlines.route.repository.AirlineRepository;
+import br.com.kolibri.kolibri.airlines.route.repository.RouteRepository;
+import br.com.kolibri.kolibri.airports.domain.Airport;
+import br.com.kolibri.kolibri.airports.repository.AirportsRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class KolibriApplication {
@@ -19,52 +19,65 @@ public class KolibriApplication {
     }
 
     @Bean
-    public CommandLineRunner demoData(AirportsRepository airportRepo, AirlineRoutesRepository routeRepo) {
+    public CommandLineRunner populate(AirlineRepository airlineRepository,
+                                      RouteRepository routeRepository,
+                                      AirportsRepository airportsRepository) {
         return args -> {
-            Airport a = new Airport();
-            a.setIcao("SBKG");
-            a.setCity("Campina Grande");
-            a.setState("PB");
-            airportRepo.save(a);
+
+            //Populating database with mocked data
+            Airline airline1 = new Airline();
+            airline1.setName("LATAM");
+            airline1.setUuid("50000");
+            airlineRepository.save(airline1);
+
+            Airline airline2 = new Airline();
+            airline2.setName("GOL");
+            airline2.setUuid("60000");
+            airlineRepository.save(airline2);
+
+            Route r1 = new Route();
+            r1.setCargo(150);
+            r1.setAirline(airline1);
+            routeRepository.save(r1);
+
+            Route r2 = new Route();
+            r2.setCargo(1550);
+            r2.setAirline(airline2);
+            routeRepository.save(r2);
+
+            Route r3 = new Route();
+            r3.setCargo(100);
+            r3.setAirline(airline2);
+            routeRepository.save(r3);
+
+            //Populate airports
+
+            Airport a1 = new Airport();
+            a1.setCity("Campina Grande");
+            a1.setCountry("Brasil");
+            a1.setIcao("SBKG");
+            a1.setLatitude(10);
+            a1.setLongitude(15);
+            a1.setState("PB");
+            airportsRepository.save(a1);
 
             Airport a2 = new Airport();
-            a2.setIcao("SBGR");
-            a2.setCity("Guarulhos");
-            a2.setState("SP");
-            airportRepo.save(a2);
+            a2.setCity("Recife");
+            a2.setCountry("Brasil");
+            a2.setIcao("SBRF");
+            a2.setLatitude(11);
+            a2.setLongitude(16);
+            a2.setState("PE");
+            airportsRepository.save(a2);
 
             Airport a3 = new Airport();
-            a3.setIcao("SBBR");
-            a3.setCity("Brasilia");
-            a3.setState("DF");
-            airportRepo.save(a3);
-
-            AirlineRoute route1 = new AirlineRoute();
-            route1.setOrigin(a);
-            route1.setDestination(a2);
-            route1.setCompany("LATAM");
-            route1.setCreatedAt(LocalDateTime.now());
-            route1.setDepartureTime(LocalDateTime.of(2020, 6, 10, 22, 22, 0));
-            route1.setCargo(1000);
-            routeRepo.save(route1);
-
-            AirlineRoute route2 = new AirlineRoute();
-            route2.setOrigin(a3);
-            route2.setDestination(a2);
-            route2.setCompany("LATAM");
-            route2.setCreatedAt(LocalDateTime.now());
-            route2.setDepartureTime(LocalDateTime.of(2020, 7, 10, 22, 22, 0));
-            route2.setCargo(500);
-            routeRepo.save(route2);
-
-            AirlineRoute route3 = new AirlineRoute();
-            route3.setOrigin(a);
-            route3.setDestination(a2);
-            route3.setCompany("GOL");
-            route3.setCreatedAt(LocalDateTime.now());
-            route3.setDepartureTime(LocalDateTime.of(2020, 6, 10, 22, 22, 0));
-            route3.setCargo(100);
-            routeRepo.save(route3);
+            a3.setCity("Guarulhos");
+            a3.setCountry("Brasil");
+            a3.setIcao("SBGR");
+            a3.setLatitude(15);
+            a3.setLongitude(22);
+            a3.setState("SP");
+            airportsRepository.save(a3);
 
         };
     }

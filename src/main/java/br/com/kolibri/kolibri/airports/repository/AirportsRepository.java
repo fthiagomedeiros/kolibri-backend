@@ -1,6 +1,6 @@
-package br.com.kolibri.kolibri.airlines.route.repository;
+package br.com.kolibri.kolibri.airports.repository;
 
-import br.com.kolibri.kolibri.airlines.route.domain.Airport;
+import br.com.kolibri.kolibri.airports.domain.Airport;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
