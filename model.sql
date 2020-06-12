@@ -1,0 +1,1 @@
+create table airport (id bigint not null, city varchar(255), country varchar(255), icao varchar(4) not null, state varchar(255), primary key (id)) engine=InnoDB
